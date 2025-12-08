@@ -6,11 +6,8 @@
       "use": "@vercel/node"
     },
     {
-      "src": "Frontend",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "Frontend"
-      }
+      "src": "Frontend/index.html",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
@@ -19,8 +16,17 @@
       "dest": "Backend/server.js"
     },
     {
+      "src": "/analyze",
+      "dest": "Backend/server.js",
+      "methods": ["POST"]
+    },
+    {
       "src": "/(.*)",
       "dest": "Frontend/$1"
+    },
+    {
+      "src": "/",
+      "dest": "Frontend/index.html"
     }
   ]
 }
