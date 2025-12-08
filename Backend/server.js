@@ -6,7 +6,7 @@ const app = express();
 app.use(cors());
 app.use(express.json()); // <-- built-in JSON parser
 
-app.post('/analyze', (req, res) => {
+app.post('/api/analyze', (req, res) => {
     const sentiment = new Sentiment();
     const text = req.body.text.toLowerCase();
     const language = req.body.language || 'en'; // Get language from request
