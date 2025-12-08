@@ -17,9 +17,17 @@ module.exports = async (req, res) => {
         return;
     }
     
-    const sentiment = new Sentiment();
-    const text = req.body.text.toLowerCase();
-    const language = req.body.language || 'en';
+    try {
+        const sentiment = new Sentiment();
+        const { text, language = 'en' } = req.body;
+        
+        if (!text) {
+            res.status(400).json({ error: 'Text is required' });
+            return;
+        }
+        
+        const lowerText = text.toLowerCase();
+
     
     // Language-specific sentiment words
     const languageSentimentWords = {
@@ -79,7 +87,7 @@ module.exports = async (req, res) => {
     let customPositive = [];
     let customNegative = [];
     
-    const words = text.split(/\s+/);
+    const words = lowerText.split(/\s+/);
     
     for (let word of words) {
         if (customWords[word]) {
@@ -97,7 +105,7 @@ module.exports = async (req, res) => {
     let result = { positive: [], negative: [], score: 0 };
     
     if (language === 'en') {
-        result = sentiment.analyze(text);
+        result = sentiment.analyze(lowerText);
     }
     
     let finalPositive = customPositive;
@@ -111,10 +119,14 @@ module.exports = async (req, res) => {
     }
     
     res.json({
-        text: text,
+        text: lowerText,
         score: finalScore,
         comparative: finalScore / (words.length || 1),
         positiveWords: finalPositive,
         negativeWords: finalNegative
     });
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Internal server error', message: error.message });
+    }
 };
