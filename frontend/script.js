@@ -1,7 +1,5 @@
 // Configuration
-const API_URL = process.env.NODE_ENV === 'production' 
-    ? '' // Use relative URL in production (same domain)
-    : 'http://localhost:3000'; // Use localhost in development
+const API_URL = window.location.origin; // Use same domain for API
 
 // Language Examples (Display in native script)
 const languageExamples = {
@@ -114,7 +112,7 @@ async function analyzeSentiment() {
 
     try {
         // API Call
-        const response = await fetch(`${API_URL}/analyze`, {
+        const response = await fetch(`${API_URL}/api/analyze`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

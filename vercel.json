@@ -2,31 +2,25 @@
   "version": 2,
   "builds": [
     {
-      "src": "Backend/server.js",
+      "src": "api/**/*.js",
       "use": "@vercel/node"
     },
     {
-      "src": "Frontend/index.html",
+      "src": "Frontend/**",
       "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "Backend/server.js"
-    },
-    {
-      "src": "/analyze",
-      "dest": "Backend/server.js",
-      "methods": ["POST"]
+      "dest": "/api/$1"
     },
     {
       "src": "/(.*)",
-      "dest": "Frontend/$1"
-    },
-    {
-      "src": "/",
-      "dest": "Frontend/index.html"
+      "dest": "/Frontend/$1"
     }
-  ]
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
 }
