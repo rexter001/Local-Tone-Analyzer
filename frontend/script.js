@@ -1,7 +1,10 @@
 // Configuration
 // Detect if running locally or on Vercel
 let API_URL;
-if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+if (window.location.protocol === 'file:') {
+    // Opening from file system
+    API_URL = 'http://localhost:3000';
+} else if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
     API_URL = 'http://localhost:3000'; // Local development
 } else {
     API_URL = window.location.origin; // Vercel or production
