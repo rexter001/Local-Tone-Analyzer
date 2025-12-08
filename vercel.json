@@ -3,10 +3,7 @@
     {
       "source": "/api/(.*)",
       "destination": "/api/$1"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/Frontend/$1"
     }
-  ]
+  ],
+  "outputDirectory": "Frontend"
 }
