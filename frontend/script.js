@@ -1,5 +1,7 @@
 // Configuration
-const API_URL = 'http://localhost:3000';
+const API_URL = process.env.NODE_ENV === 'production' 
+    ? '' // Use relative URL in production (same domain)
+    : 'http://localhost:3000'; // Use localhost in development
 
 // Language Examples (Display in native script)
 const languageExamples = {
