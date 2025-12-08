@@ -1,4 +1,8 @@
 {
-  "buildCommand": "echo 'No build needed'",
-  "outputDirectory": "Frontend"
+  "functions": {
+    "api/**/*.js": {
+      "memory": 1024,
+      "maxDuration": 10
+    }
+  }
 }
