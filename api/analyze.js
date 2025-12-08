@@ -1,5 +1,3 @@
-const Sentiment = require('sentiment');
-
 module.exports = async (req, res) => {
     // Enable CORS
     res.setHeader('Access-Control-Allow-Credentials', true);
@@ -18,7 +16,6 @@ module.exports = async (req, res) => {
     }
     
     try {
-        const sentiment = new Sentiment();
         const { text, language = 'en' } = req.body;
         
         if (!text) {
@@ -104,9 +101,26 @@ module.exports = async (req, res) => {
     
     let result = { positive: [], negative: [], score: 0 };
     
+    // Simple English sentiment analysis without external package
     if (language === 'en') {
-        result = sentiment.analyze(lowerText);
+        const positiveWords = ['happy', 'great', 'excellent', 'wonderful', 'awesome', 'love', 'beautiful', 'good', 'best', 'amazing', 'fantastic'];
+        const negativeWords = ['sad', 'terrible', 'awful', 'horrible', 'bad', 'hate', 'ugly', 'worst', 'poor', 'disgusting'];
+        
+        const words = lowerText.split(/\s+/);
+        let score = 0;
+        
+        for (let word of words) {
+            if (positiveWords.includes(word)) {
+                result.positive.push(word);
+                score += 1;
+            } else if (negativeWords.includes(word)) {
+                result.negative.push(word);
+                score -= 1;
+            }
+        }
+        result.score = score;
     }
+
     
     let finalPositive = customPositive;
     let finalNegative = customNegative;
