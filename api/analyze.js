@@ -1,12 +1,22 @@
-const express = require('express');
-const cors = require('cors');
 const Sentiment = require('sentiment');
 
-const app = express();
-app.use(cors());
-app.use(express.json());
-
-app.post('/analyze', (req, res) => {
+module.exports = async (req, res) => {
+    // Enable CORS
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+    res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
+    
+    if (req.method === 'OPTIONS') {
+        res.status(200).end();
+        return;
+    }
+    
+    if (req.method !== 'POST') {
+        res.status(405).json({ error: 'Method not allowed' });
+        return;
+    }
+    
     const sentiment = new Sentiment();
     const text = req.body.text.toLowerCase();
     const language = req.body.language || 'en';
@@ -107,6 +117,4 @@ app.post('/analyze', (req, res) => {
         positiveWords: finalPositive,
         negativeWords: finalNegative
     });
-});
-
-module.exports = app;
+};

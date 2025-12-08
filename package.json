@@ -1,0 +1,7 @@
+{
+  "name": "nlp-chat-app",
+  "version": "1.0.0",
+  "dependencies": {
+    "sentiment": "^5.0.2"
+  }
+}
