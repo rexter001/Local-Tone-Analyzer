@@ -3,6 +3,19 @@
 
 A web-based NLP application that analyzes the sentiment and tone of user-provided text in real time. The system processes text input and classifies it as positive, negative, or neutral, helping users better understand the emotional context of their messages.
 
+## Screenshots
+
+### Homepage
+![Homepage](Screenshots/Homepage.png)
+
+### Language Selection
+![Language Selection](Screenshots/Languages.png)
+
+### Positive Sentiment Analysis
+![Positive Result](Screenshots/Analysis-Result-Positive.png)
+
+### Negative Sentiment Analysis
+![Negative Result](Screenshots/Analysis-Result-Negative.png)
 
 ## Features
 
